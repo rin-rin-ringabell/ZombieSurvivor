@@ -54,7 +54,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.4
+  m_Radius: 0.6
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!108 &2340873824418493026
 Light:
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6778737dc3e2c5438018b30c39c61a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healAmount: 20
+  healAmount: 50
 --- !u!1 &7110725355595218572
 GameObject:
   m_ObjectHideFlags: 0

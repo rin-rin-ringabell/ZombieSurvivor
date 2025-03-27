@@ -39,25 +39,10 @@ public class Woman : MonoBehaviour, ILivingThings
 
     void Update()
     {
+
         if (isDead) return;
 
-        float ratio = this.health / this.maxHealth;
-        hpBar.value = Mathf.Clamp01(ratio);
-
-        var v = Input.GetAxis("Vertical");
-        var h = Input.GetAxis("Horizontal");
-        var dir = new Vector3(h, 0, v);
-
-        var movement = transform.position + (dir.z * transform.forward * speed * Time.deltaTime);
-        if (movement != Vector3.zero)
-        {
-            rb.MovePosition(movement);
-            animator.SetFloat("Move", v);
-        }
-        var turn = Quaternion.Euler(0, h * turnSpeed * Time.deltaTime, 0);
-        rb.MoveRotation(rb.rotation * turn);
-
-        if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(0))
         {
             if (currentAmmo > 0)
             {
@@ -80,6 +65,27 @@ public class Woman : MonoBehaviour, ILivingThings
         }
 
         GameManager.Instance.bulletText.text = currentAmmo.ToString() + " / " + extraAmmo.ToString();
+
+    }
+    private void FixedUpdate()
+    {
+        if (isDead) return;
+
+        float ratio = this.health / this.maxHealth;
+        hpBar.value = Mathf.Clamp01(ratio);
+
+        var v = Input.GetAxis("Vertical");
+        var h = Input.GetAxis("Horizontal");
+        var dir = new Vector3(h, 0, v);
+
+        var movement = transform.position + (dir.z * transform.forward * speed * Time.deltaTime);
+        if (movement != Vector3.zero)
+        {
+            rb.MovePosition(movement);
+            animator.SetFloat("Move", v);
+        }
+        var turn = Quaternion.Euler(0, h * turnSpeed * Time.deltaTime, 0);
+        rb.MoveRotation(rb.rotation * turn);
 
     }
 
@@ -136,7 +142,9 @@ public class Woman : MonoBehaviour, ILivingThings
 
     public void TakeDamage(float attack)
     {
+        if(!isDead)
         audioSource.PlayOneShot(damage);
+
         health -= attack;
         float ratio = this.health / this.maxHealth;
         hpBar.value = Mathf.Clamp01(ratio);
